@@ -135,22 +135,24 @@ group by gender; -- vetsi prumerny vek u splacenych pujcek maji muzi - 67,87
 
 SELECT dis.district_id as oblast,
        dis.a2 as nazev_oblasti,
-        (count(a.district_id)) as počet
+        (count(a.district_id)) as pocet
 from account a
 join disp d on a.account_id = d.account_id
 join district dis on a.district_id = dis.district_id
 where type = 'OWNER'
-group by oblast ; -- nejvíc klientů má Praha
+group by oblast
+order by pocet desc; -- nejvíc klientů má Praha
 
 -- v jaké oblasti bylo splaceno nejvíce úvěrů,
 
 select d.district_id as oblast,
        d.a2 as nazev_oblasti,
-        (count(loan_id)) as počet_uveru
+        (count(loan_id)) as pocet_uveru
 from loan l
 join account a on l.account_id = a.account_id
 join district d on a.district_id = d.district_id
-group by d.district_id, d.a2 ; -- nejvíce uveru ma Praha
+group by d.district_id, d.a2
+order by pocet_uveru desc; -- nejvíce uveru ma Praha
 
 -- v jaké oblasti byla splacena nejvyšší částka úvěrů,
 
@@ -160,7 +162,8 @@ select d.district_id as oblast,
 from loan l
 join account a on l.account_id = a.account_id
 join district d on a.district_id = d.district_id
-group by d.district_id, d.a2 ; -- nejvyssí častka byla splacena v Praze
+group by d.district_id, d.a2
+order by castka_uveru desc; -- nejvyssí častka byla splacena v Praze
 
 -- ANALÝZA KLIENTA ČÁST 3
 
